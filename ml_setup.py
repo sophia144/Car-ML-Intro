@@ -2,7 +2,7 @@
 from ucimlrepo import fetch_ucirepo 
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import OneHotEncoder
+from sklearn import metrics
 
 # fetch dataset 
 # https://archive.ics.uci.edu/dataset/19/car+evaluation
@@ -38,3 +38,6 @@ clf = DecisionTreeClassifier()
 clf = clf.fit(x_train, y_train)
 # predict the response for test dataset
 y_pred = clf.predict(x_test)
+
+# Model Accuracy, how often is the classifier correct?
+print("Accuracy:", metrics.accuracy_score(y_test, y_pred))
