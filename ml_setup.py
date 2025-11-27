@@ -1,8 +1,10 @@
-# imports
+# ML imports
 from ucimlrepo import fetch_ucirepo 
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
+from sklearn.tree import plot_tree
+import matplotlib.pyplot as plt
 
 # fetch dataset 
 # https://archive.ics.uci.edu/dataset/19/car+evaluation
@@ -13,6 +15,8 @@ x = (car_evaluation.data.features).copy()
 y = (car_evaluation.data.targets).copy()
 
 # replacing strings with ints
+feature_cols = ['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety']
+
 x.replace(
     {'buying' : { 'vhigh' : 1, 'high' : 2, 'med' : 3, 'low' : 4 }, 
     'maint': { 'vhigh' : 1, 'high' : 2, 'med' : 3, 'low' : 4 }, 
@@ -32,12 +36,18 @@ y.replace(
 # splitting data into training and testing populations
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42) # 70% training and 30% testing
 
-# create Decision Tree classifer object
+# create and train DTC
 clf = DecisionTreeClassifier()
-# train Decision Tree Classifer
 clf = clf.fit(x_train, y_train)
 # predict the response for test dataset
 y_pred = clf.predict(x_test)
 
-# Model Accuracy, how often is the classifier correct?
+# how often is the classifier correct
 print("Accuracy:", metrics.accuracy_score(y_test, y_pred))
+
+fig = plt.figure(figsize=(25,20))
+graph = plt.plot_tree(clf,
+                   feature_names = car_evaluation.feature_names,
+                   class_names = car_evaluation.target_names,
+                   filled=True
+                   )
