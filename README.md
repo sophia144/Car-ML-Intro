@@ -1,5 +1,3 @@
-**This repo is incomplete and does not yet run.**
-
 ## Summary
 Python code using Scikit Learn to create a decision tree, with the condition of various cars based on different characteristics as an example.  
 This machine learning practice uses [data from UCI](https://archive.ics.uci.edu/dataset/19/car+evaluation). 
